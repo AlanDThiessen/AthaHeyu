@@ -20,7 +20,7 @@ const lightService = app.service('lights');
 
 var lights = {};
 
-console.log("AthaHeyu - The client bridge between Atha home automation service and Heyu");
+console.log("AthaHeyu - A client bridge between the Atha home automation service and Heyu.");
 
 FindLights();
 
