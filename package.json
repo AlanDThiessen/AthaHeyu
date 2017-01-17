@@ -1,0 +1,22 @@
+{
+  "name": "atha-heyu",
+  "version": "1.0.0",
+  "description": "A client to connect the Atha home automation service to Heyu.",
+  "main": "AthaHeyu.js",
+  "scripts": {
+  },
+  "keywords": [
+    "Heyu",
+    "Automation"
+  ],
+  "author": "Alan Thiessen",
+  "license": "MIT",
+  "dependencies": {
+    "feathers": "^2.0.3",
+    "feathers-client": "^1.9.0",
+    "feathers-hooks": "^1.7.1",
+    "feathers-socketio": "^1.4.2",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2"
+  }
+}
