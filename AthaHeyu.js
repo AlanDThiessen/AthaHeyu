@@ -1,12 +1,16 @@
 
-const feathers = require('feathers/client')
+const feathers = require('feathers/client');
 const socketio = require('feathers-socketio/client');
 const hooks = require('feathers-hooks');
 const io = require('socket.io-client');
+const authentication = require('feathers-authentication/client');
 const exec = require('child_process').execFile;
 
 
 const SERVER = 'http://localhost:3030';
+const EMAIL = 'test@example.com';
+const PASSWORD = 'test12345';
+
 const HEYU = '/usr/local/bin/heyu';
 const X10_BRIGHTNESS = 22;
 
@@ -14,15 +18,44 @@ const X10_BRIGHTNESS = 22;
 const socket = io(SERVER);
 const app = feathers()
     .configure(hooks())
-    .configure(socketio(socket));
+    .configure(socketio(socket))
+    .configure(authentication());
 
 const lightService = app.service('lights');
 
 var lights = {};
 
-console.log("AthaHeyu - A client bridge between the Atha home automation service and Heyu.");
 
-FindLights();
+Main();
+
+
+function Main() {
+    console.log("AthaHeyu - A client bridge between the Atha home automation service and Heyu.");
+    Login();
+}
+
+
+function Login() {
+    console.log("Logging into server.");
+    app.authenticate({
+        'type': 'local',
+        'email': EMAIL,
+        'password': PASSWORD
+    }).then(LoginSuccess, LoginFailure);
+}
+
+
+function LoginSuccess() {
+    console.log("Login successful");
+    FindLights();
+}
+
+
+function LoginFailure(error) {
+    console.log("Login failed");
+    console.log(error);
+    app.close();
+}
 
 
 function FindLights() {
